@@ -112,8 +112,7 @@ func StringToLevel(levelStr string) colog.Level {
 	}
 }
 
-func myscorer(requested, allocable ResourceToValueMap)int64
-{ 
+func myscorer(requested, allocable ResourceToValueMap) int64 { 
 	cpuFraction := fractionOfCapacity(requestmap[v1.ResourceCPU], allocable[v1.ResourceCPU]) 
 	memoryFraction := fractionOfCapacity(requestmap[v1.ResourceMemory], allocable[v1.ResourceMemory])
 	if cpuFraction >= 1 || memoryFraction >= 1 {
@@ -129,6 +128,7 @@ func fractionOfCapacity(requested, capacity int64) float64 {
 	}
 	return float64(requested) / float64(capacity)
 }
+
 func main() {
 	colog.SetDefaultLevel(colog.LInfo)
 	colog.SetMinLevel(colog.LInfo)
