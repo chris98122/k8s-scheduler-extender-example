@@ -51,7 +51,25 @@ var (
 	TruePredicate = Predicate{
 		Name: "always_true",
 		Func: func(pod v1.Pod, node v1.Node) (bool, error) {
-			return true, nil
+			// get pod infos
+			podRequest_cpu := int64(0)
+			podRequest_mem :=int64(0)
+			for i := range pod.Spec.Containers {
+				container := &pod.Spec.Containers[i]
+				value_cpu := priorityutil.GetNonzeroRequestForResource(v1.ResourceCPU, &container.Resources.Requests)
+				value_mem :=  priorityutil.GetNonzeroRequestForResource(v1.ResourceMemory, &container.Resources.Requests)
+				podRequest_cpu += value_cpu
+				podRequest_mem += value_mem
+			}
+			// get node infos
+			allocableCPU :=  node.Status.Allocatable.Cpu().MilliValue()
+			allocableMemory := node.Status.Allocatable.Memory().MilliValue()
+			// compare
+			if float64(allocableCPU) > float64(podRequest_cpu) && float64(allocableMemory) > float64(podRequest_mem) {
+				return true, nil
+			}
+
+			return false, nil
 		},
 	} 
 
