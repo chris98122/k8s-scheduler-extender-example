@@ -1,4 +1,16 @@
 # k8s-scheduler-extender-example
+## declaration
+
+This is a repo that the frame is forked from everpeace/k8s-scheduler-extender-example, the algorithm is written by us.
+
+In the lab, we use our customized scheduler and also built-in scheduler (see extender.yaml and built-in-scheduler.yaml). And also compare the scheduled result from the customized scheduler and the built-in.
+
+See the report in ./report directory. 
+
+
+
+
+
 This is an example of [Kubernetes Scheduler Extender](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/scheduling/scheduler_extender.md)
 
 ## How to

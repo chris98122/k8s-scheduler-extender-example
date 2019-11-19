@@ -145,3 +145,62 @@ slave结点之间的负载较为均衡。
 2. 仅仅使用一种priority，只考虑资源空闲比是不够的。还需要考虑到locality、CPU和Memory之间的平衡等等策略。
 
    所以一些built-in的priority像是NodeAffinityPriority、BalancedAllocation就较好的解决了这些priority的计算问题。
+
+# built-in scheduler的使用
+
+首先使用yaml创建一个configmap，里面配置了我们想用的predicate和priority：
+
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: bult-in-policy
+  namespace: kube-system
+data:
+ policy.cfg : |
+  {
+    "kind" : "Policy",
+    "apiVersion" : "v1",
+    "predicates" : [ 
+      {"name" : "PodFitsResources"}
+    ],
+    "priorities" : [ 
+      {"name" : "LeastRequestedPriority", "weight" : 1}
+    ],
+    "hardPodAffinitySymmetricWeight" : 10
+  }
+```
+
+我们选用的predicate是PodFitsResources，资源足够的node将会进入候选名单。
+
+priorities是LeastRequestedPriority，即选择接受pod后资源余量最多的node。
+
+kubectl apply，创建该configmap，接着使用kube-scheduler指定默认的scheduler为我们刚刚创建的configmap。当pod未指定schedulerName时将使用此scheduler。
+
+在两个nodes的集群中部署一个单位为5的replicaset，资源占用率如下：
+
+node1:
+
+![](E:\SE\k8s\k8s-scheduler-extender-example\report\imgs\built-node1.PNG)
+
+node2:
+
+![](E:\SE\k8s\k8s-scheduler-extender-example\report\imgs\built-node2.PNG)
+
+两个node资源消耗分布均衡，符合预期。
+
+
+
+# my-scheduler 与 built-in scheduler对比
+
+采用控制变量法，replica只改变scheduler为my-scheduler，得到以下结果：
+
+node1：
+
+![](E:\SE\k8s\k8s-scheduler-extender-example\report\imgs\my-node1.PNG)
+
+node2:
+
+![](E:\SE\k8s\k8s-scheduler-extender-example\report\imgs\my-node2.PNG)
+
+可见资源的消耗并不是很平均，但差得也不会太离谱。若要对cpu和memory进行更为平均的分配，还需要进一步优化原有算法，或者加入built-in scheduler。
