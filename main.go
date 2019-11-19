@@ -34,12 +34,23 @@ var (
 		},
 	}
 
-	ZeroPriority = Prioritize{
-		Name: "zero_score",
+	myPriority = Prioritize{
+		Name: "my_score",
 		Func: func(_ v1.Pod, nodes []v1.Node) (*schedulerapi.HostPriorityList, error) {
 			var priorityList schedulerapi.HostPriorityList
 			priorityList = make([]schedulerapi.HostPriority, len(nodes))
+			podRequest := 0
+			for i := range pod.Spec.Containers {
+				container := &pod.Spec.Containers[i]
+				value := priorityutil.GetNonzeroRequestForResource(v1.ResourceCPU, &container.Resources.Requests)
+				podRequest += value
+			}
+			
+			klog.Info( "pod cpu request %d",podRequest)
 			for i, node := range nodes {
+				
+				klog.Info( "node %s %d %d %d" , node.Name,node.Status.Allocatable,node.Status.Capacity,node.Status.VolumesInUse) 
+				
 				priorityList[i] = schedulerapi.HostPriority{
 					Host:  node.Name,
 					Score: 0,
@@ -48,6 +59,7 @@ var (
 			return &priorityList, nil
 		},
 	}
+
 
 	NoBind = Bind{
 		Func: func(podName string, podNamespace string, podUID types.UID, node string) error {
@@ -106,7 +118,7 @@ func main() {
 		AddPredicate(router, p)
 	}
 
-	priorities := []Prioritize{ZeroPriority}
+	priorities := []Prioritize{myPriority}
 	for _, p := range priorities {
 		AddPrioritize(router, p)
 	}

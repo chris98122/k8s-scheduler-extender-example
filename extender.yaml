@@ -64,7 +64,7 @@ data:
     "extenders" : [{
       "urlPrefix": "http://localhost/scheduler",
       "filterVerb": "predicates/always_true",
-      "prioritizeVerb": "priorities/zero_score",
+      "prioritizeVerb": "priorities/my_score",
       "preemptVerb": "preemption",
       "bindVerb": "",
       "weight": 1,
