@@ -45,7 +45,7 @@ var (
 			var priorityList schedulerapi.HostPriorityList
 			priorityList = make([]schedulerapi.HostPriority, len(nodes))
 			podRequest_cpu := int64(0)
-			podRequest_mem : =int64(0)
+			podRequest_mem :=int64(0)
 			for i := range pod.Spec.Containers {
 				container := &pod.Spec.Containers[i]
 				value_cpu := priorityutil.GetNonzeroRequestForResource(v1.ResourceCPU, &container.Resources.Requests)
