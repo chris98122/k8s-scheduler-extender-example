@@ -28,6 +28,23 @@ const (
 
 type ResourceToValueMap map[v1.ResourceName]int64
 
+func myscorer(requestmap, allocable ResourceToValueMap) int64 { 
+	cpuFraction := fractionOfCapacity(requestmap[v1.ResourceCPU], allocable[v1.ResourceCPU]) 
+	memoryFraction := fractionOfCapacity(requestmap[v1.ResourceMemory], allocable[v1.ResourceMemory])
+	if cpuFraction >= 1 || memoryFraction >= 1 {
+		// if requested >= capacity, the corresponding host should never be preferred.
+		return 0
+	}
+	return int64(10-cpuFraction-memoryFraction) 
+}
+
+func fractionOfCapacity(requested, capacity int64) float64 {
+	if capacity == 0 {
+		return 1
+	}
+	return float64(requested) / float64(capacity)
+}
+
 var (
 	version string // injected via ldflags at build time
 
@@ -112,23 +129,6 @@ func StringToLevel(levelStr string) colog.Level {
 		log.Printf("warning: LOG_LEVEL=\"%s\" is empty or invalid, fallling back to \"INFO\".\n", level)
 		return colog.LInfo
 	}
-}
-
-func myscorer(requestmap, allocable ResourceToValueMap) int64 { 
-	cpuFraction := fractionOfCapacity(requestmap[v1.ResourceCPU], allocable[v1.ResourceCPU]) 
-	memoryFraction := fractionOfCapacity(requestmap[v1.ResourceMemory], allocable[v1.ResourceMemory])
-	if cpuFraction >= 1 || memoryFraction >= 1 {
-		// if requested >= capacity, the corresponding host should never be preferred.
-		return 0
-	}
-	return int64(10-cpuFraction-memoryFraction) 
-}
-
-func fractionOfCapacity(requested, capacity int64) float64 {
-	if capacity == 0 {
-		return 1
-	}
-	return float64(requested) / float64(capacity)
 }
 
 func main() {
