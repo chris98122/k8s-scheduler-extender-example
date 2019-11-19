@@ -57,7 +57,9 @@ var (
 			requestmap[v1.ResourceCPU] = podRequest_cpu   
 			requestmap[v1.ResourceMemory] = podRequest_mem
 
-			log.Print("pod cpu request  ", strconv.FormatInt( podRequest,10) )  
+			log.Print("pod cpu request  ", strconv.FormatInt( podRequest_cpu   ,10) )  
+			
+			log.Print("pod memory request  ", strconv.FormatInt( podRequest_mem   ,10) )  
 			for i, node := range nodes {
 				allocable_map := make(ResourceToValueMap,len(nodes)*2)
 				allocable_map[v1.ResourceCPU] =  node.Status.Allocatable.Cpu().MilliValue()
@@ -112,7 +114,7 @@ func StringToLevel(levelStr string) colog.Level {
 	}
 }
 
-func myscorer(requested, allocable ResourceToValueMap) int64 { 
+func myscorer(requestmap, allocable ResourceToValueMap) int64 { 
 	cpuFraction := fractionOfCapacity(requestmap[v1.ResourceCPU], allocable[v1.ResourceCPU]) 
 	memoryFraction := fractionOfCapacity(requestmap[v1.ResourceMemory], allocable[v1.ResourceMemory])
 	if cpuFraction >= 1 || memoryFraction >= 1 {
