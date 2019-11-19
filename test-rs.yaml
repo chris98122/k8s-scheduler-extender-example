@@ -5,8 +5,6 @@ metadata:
 spec:
   replicas: 2
     template:　　#pod的模板定义 
-        metadata:
-          name: test-pod
         spec:
           schedulerName: my-scheduler
           containers:
