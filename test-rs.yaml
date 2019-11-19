@@ -4,13 +4,14 @@ metadata:
   name: hello-minikube
 spec:
   replicas: 2
-  template:
-    metadata:
-      labels:
-        run: nginx
-  spec:
-   containers:
-          - name: nginx
-            image: nginx
-            ports:
-            - containerPort: 80
+  selector:
+    template:
+      metadata:
+        labels:
+          run: nginx
+    spec:
+    containers:
+            - name: nginx
+              image: nginx
+              ports:
+              - containerPort: 80
