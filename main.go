@@ -13,6 +13,8 @@ import (
 	"k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/types"
 	schedulerapi "k8s.io/kubernetes/pkg/scheduler/api"
+	"k8s.io/klog"
+	priorityutil "k8s.io/kubernetes/pkg/scheduler/algorithm/priorities/util"
 )
 
 const (
@@ -36,7 +38,7 @@ var (
 
 	myPriority = Prioritize{
 		Name: "my_score",
-		Func: func(_ v1.Pod, nodes []v1.Node) (*schedulerapi.HostPriorityList, error) {
+		Func: func(pod v1.Pod, nodes []v1.Node) (*schedulerapi.HostPriorityList, error) {
 			var priorityList schedulerapi.HostPriorityList
 			priorityList = make([]schedulerapi.HostPriority, len(nodes))
 			podRequest := 0
