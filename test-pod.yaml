@@ -1,12 +1,17 @@
 apiVersion: v1
-kind: Pod
+kind: Deployment
 metadata:
   name: test-pod
 spec:
   replicas: 30
   schedulerName: my-scheduler
-  containers:
-  - name: nginx
-    image: nginx
-    ports:
-    - containerPort: 80
+   template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+    - name: nginx
+      image: nginx
+      ports:
+      - containerPort: 80
