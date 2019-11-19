@@ -1,13 +1,15 @@
-apiVersion: extensions/v1
+apiVersion: extensions/v1beta1
 kind: ReplicaSet
 metadata:
   name: hello-minikube
 spec:
   replicas: 2
-    template:　　#pod的模板定义 
-        spec:
-          schedulerName: my-scheduler
-          containers:
+  template:
+    metadata:
+      labels:
+        run: nginx
+  spec:
+   containers:
           - name: nginx
             image: nginx
             ports:
