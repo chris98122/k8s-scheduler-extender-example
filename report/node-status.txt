@@ -1,0 +1,194 @@
+Name:               ip-172-31-20-245
+Roles:              <none>
+Labels:             beta.kubernetes.io/arch=amd64
+                    beta.kubernetes.io/os=linux
+                    kubernetes.io/arch=amd64
+                    kubernetes.io/hostname=ip-172-31-20-245
+                    kubernetes.io/os=linux
+                    microk8s.io/cluster=true
+Annotations:        node.alpha.kubernetes.io/ttl: 0
+                    volumes.kubernetes.io/controller-managed-attach-detach: true
+CreationTimestamp:  Tue, 19 Nov 2019 06:41:57 +0000
+Taints:             <none>
+Unschedulable:      false
+Conditions:
+  Type             Status  LastHeartbeatTime                 LastTransitionTime                Reason                       Message
+  ----             ------  -----------------                 ------------------                ------                       -------
+  MemoryPressure   False   Tue, 19 Nov 2019 15:18:13 +0000   Tue, 19 Nov 2019 06:41:54 +0000   KubeletHasSufficientMemory   kubelet has sufficient memory available
+  DiskPressure     False   Tue, 19 Nov 2019 15:18:13 +0000   Tue, 19 Nov 2019 09:48:54 +0000   KubeletHasNoDiskPressure     kubelet has no disk pressure
+  PIDPressure      False   Tue, 19 Nov 2019 15:18:13 +0000   Tue, 19 Nov 2019 06:41:54 +0000   KubeletHasSufficientPID      kubelet has sufficient PID available
+  Ready            True    Tue, 19 Nov 2019 15:18:13 +0000   Tue, 19 Nov 2019 13:45:10 +0000   KubeletReady                 kubelet is posting ready status. AppArmor enabled
+Addresses:
+  InternalIP:  172.31.20.245
+  Hostname:    ip-172-31-20-245
+Capacity:
+ cpu:                4
+ ephemeral-storage:  8065444Ki
+ hugepages-1Gi:      0
+ hugepages-2Mi:      0
+ memory:             16424512Ki
+ pods:               110
+Allocatable:
+ cpu:                4
+ ephemeral-storage:  7016868Ki
+ hugepages-1Gi:      0
+ hugepages-2Mi:      0
+ memory:             16322112Ki
+ pods:               110
+System Info:
+ Machine ID:                 7ead4a9f61bf4ff785882043335c5912
+ System UUID:                EC26BD2A-F147-C9FE-24CC-0E3FE4DB43C7
+ Boot ID:                    9bb35e70-022b-4818-a31d-dd0dc70fc042
+ Kernel Version:             4.15.0-1051-aws
+ OS Image:                   Ubuntu 18.04.3 LTS
+ Operating System:           linux
+ Architecture:               amd64
+ Container Runtime Version:  containerd://1.2.5
+ Kubelet Version:            v1.16.3
+ Kube-Proxy Version:         v1.16.3
+Non-terminated Pods:         (5 in total)
+  Namespace                  Name                                     CPU Requests  CPU Limits  Memory Requests  Memory Limits  AGE
+  ---------                  ----                                     ------------  ----------  ---------------  -------------  ---
+  default                    test-rs-bv8x7                            1 (25%)       1 (25%)     1Gi (6%)         1Gi (6%)       64s
+  default                    test-rs-j8ljb                            1 (25%)       1 (25%)     1Gi (6%)         1Gi (6%)       64s
+  default                    test-rs-sdq8l                            1 (25%)       1 (25%)     1Gi (6%)         1Gi (6%)       64s
+  kube-system                metrics-server-v0.2.1-598c8978c-xrmwf    5m (0%)       100m (2%)   50Mi (0%)        300Mi (1%)     3h27m
+  kube-system                my-scheduler-64dffb6c6c-dhglz            0 (0%)        0 (0%)      0 (0%)           0 (0%)         4h1m
+Allocated resources:
+  (Total limits may be over 100 percent, i.e., overcommitted.)
+  Resource           Requests      Limits
+  --------           --------      ------
+  cpu                3005m (75%)   3100m (77%)
+  memory             3122Mi (19%)  3372Mi (21%)
+  ephemeral-storage  0 (0%)        0 (0%)
+Events:              <none>
+
+
+Name:               ip-172-31-40-143
+Roles:              <none>
+Labels:             beta.kubernetes.io/arch=amd64
+                    beta.kubernetes.io/os=linux
+                    kubernetes.io/arch=amd64
+                    kubernetes.io/hostname=ip-172-31-40-143
+                    kubernetes.io/os=linux
+                    microk8s.io/cluster=true
+Annotations:        node.alpha.kubernetes.io/ttl: 0
+                    volumes.kubernetes.io/controller-managed-attach-detach: true
+CreationTimestamp:  Tue, 19 Nov 2019 11:59:54 +0000
+Taints:             <none>
+Unschedulable:      false
+Conditions:
+  Type             Status  LastHeartbeatTime                 LastTransitionTime                Reason                       Message
+  ----             ------  -----------------                 ------------------                ------                       -------
+  MemoryPressure   False   Tue, 19 Nov 2019 15:18:05 +0000   Tue, 19 Nov 2019 11:59:50 +0000   KubeletHasSufficientMemory   kubelet has sufficient memory available
+  DiskPressure     False   Tue, 19 Nov 2019 15:18:05 +0000   Tue, 19 Nov 2019 11:59:50 +0000   KubeletHasNoDiskPressure     kubelet has no disk pressure
+  PIDPressure      False   Tue, 19 Nov 2019 15:18:05 +0000   Tue, 19 Nov 2019 11:59:50 +0000   KubeletHasSufficientPID      kubelet has sufficient PID available
+  Ready            True    Tue, 19 Nov 2019 15:18:05 +0000   Tue, 19 Nov 2019 13:20:22 +0000   KubeletReady                 kubelet is posting ready status. AppArmor enabled
+Addresses:
+  InternalIP:  172.31.40.143
+  Hostname:    ip-172-31-40-143
+Capacity:
+ cpu:                4
+ ephemeral-storage:  8065444Ki
+ hugepages-1Gi:      0
+ hugepages-2Mi:      0
+ memory:             16424516Ki
+ pods:               110
+Allocatable:
+ cpu:                4
+ ephemeral-storage:  7016868Ki
+ hugepages-1Gi:      0
+ hugepages-2Mi:      0
+ memory:             16322116Ki
+ pods:               110
+System Info:
+ Machine ID:                 43897562a0be45c3868375558ee8896a
+ System UUID:                EC2305B1-2C8A-6295-6724-95654222A393
+ Boot ID:                    b09deca5-8a85-46af-81af-f35a49240e3b
+ Kernel Version:             4.15.0-1051-aws
+ OS Image:                   Ubuntu 18.04.3 LTS
+ Operating System:           linux
+ Architecture:               amd64
+ Container Runtime Version:  containerd://1.2.5
+ Kubelet Version:            v1.16.3
+ Kube-Proxy Version:         v1.16.3
+Non-terminated Pods:         (4 in total)
+  Namespace                  Name                       CPU Requests  CPU Limits  Memory Requests  Memory Limits  AGE
+  ---------                  ----                       ------------  ----------  ---------------  -------------  ---
+  default                    test-rs-9xzdt              1 (25%)       1 (25%)     1Gi (6%)         1Gi (6%)       65s
+  default                    test-rs-flhgf              1 (25%)       1 (25%)     1Gi (6%)         1Gi (6%)       65s
+  default                    test-rs-gqgzn              1 (25%)       1 (25%)     1Gi (6%)         1Gi (6%)       65s
+  kube-system                coredns-9b8997588-4xvf6    100m (2%)     0 (0%)      70Mi (0%)        170Mi (1%)     126m
+Allocated resources:
+  (Total limits may be over 100 percent, i.e., overcommitted.)
+  Resource           Requests      Limits
+  --------           --------      ------
+  cpu                3100m (77%)   3 (75%)
+  memory             3142Mi (19%)  3242Mi (20%)
+  ephemeral-storage  0 (0%)        0 (0%)
+Events:              <none>
+
+
+Name:               ip-172-31-47-136
+Roles:              <none>
+Labels:             beta.kubernetes.io/arch=amd64
+                    beta.kubernetes.io/os=linux
+                    kubernetes.io/arch=amd64
+                    kubernetes.io/hostname=ip-172-31-47-136
+                    kubernetes.io/os=linux
+                    microk8s.io/cluster=true
+Annotations:        node.alpha.kubernetes.io/ttl: 0
+                    volumes.kubernetes.io/controller-managed-attach-detach: true
+CreationTimestamp:  Tue, 19 Nov 2019 13:40:26 +0000
+Taints:             <none>
+Unschedulable:      false
+Conditions:
+  Type             Status  LastHeartbeatTime                 LastTransitionTime                Reason                       Message
+  ----             ------  -----------------                 ------------------                ------                       -------
+  MemoryPressure   False   Tue, 19 Nov 2019 15:17:34 +0000   Tue, 19 Nov 2019 13:40:23 +0000   KubeletHasSufficientMemory   kubelet has sufficient memory available
+  DiskPressure     False   Tue, 19 Nov 2019 15:17:34 +0000   Tue, 19 Nov 2019 13:40:23 +0000   KubeletHasNoDiskPressure     kubelet has no disk pressure
+  PIDPressure      False   Tue, 19 Nov 2019 15:17:34 +0000   Tue, 19 Nov 2019 13:40:23 +0000   KubeletHasSufficientPID      kubelet has sufficient PID available
+  Ready            True    Tue, 19 Nov 2019 15:17:34 +0000   Tue, 19 Nov 2019 13:40:23 +0000   KubeletReady                 kubelet is posting ready status. AppArmor enabled
+Addresses:
+  InternalIP:  172.31.47.136
+  Hostname:    ip-172-31-47-136
+Capacity:
+ cpu:                4
+ ephemeral-storage:  8065444Ki
+ hugepages-1Gi:      0
+ hugepages-2Mi:      0
+ memory:             16424516Ki
+ pods:               110
+Allocatable:
+ cpu:                4
+ ephemeral-storage:  7016868Ki
+ hugepages-1Gi:      0
+ hugepages-2Mi:      0
+ memory:             16322116Ki
+ pods:               110
+System Info:
+ Machine ID:                 0e3682576fb24db2bc8f9f557cd36600
+ System UUID:                EC281579-208C-BFB9-4F47-AD7078ADC74E
+ Boot ID:                    42cd24a3-0098-4e36-95c5-8bb182364447
+ Kernel Version:             4.15.0-1051-aws
+ OS Image:                   Ubuntu 18.04.3 LTS
+ Operating System:           linux
+ Architecture:               amd64
+ Container Runtime Version:  containerd://1.2.5
+ Kubelet Version:            v1.16.3
+ Kube-Proxy Version:         v1.16.3
+Non-terminated Pods:         (4 in total)
+  Namespace                  Name             CPU Requests  CPU Limits  Memory Requests  Memory Limits  AGE
+  ---------                  ----             ------------  ----------  ---------------  -------------  ---
+  default                    test-rs-dpmx5    1 (25%)       1 (25%)     1Gi (6%)         1Gi (6%)       45s
+  default                    test-rs-mhlj9    1 (25%)       1 (25%)     1Gi (6%)         1Gi (6%)       46s
+  default                    test-rs-s2fw4    1 (25%)       1 (25%)     1Gi (6%)         1Gi (6%)       65s
+  default                    test-rs-xcfds    1 (25%)       1 (25%)     1Gi (6%)         1Gi (6%)       46s
+Allocated resources:
+  (Total limits may be over 100 percent, i.e., overcommitted.)
+  Resource           Requests   Limits
+  --------           --------   ------
+  cpu                4 (100%)   4 (100%)
+  memory             4Gi (25%)  4Gi (25%)
+  ephemeral-storage  0 (0%)     0 (0%)
+Events:              <none>
