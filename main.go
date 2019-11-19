@@ -46,10 +46,10 @@ var (
 				value := priorityutil.GetNonzeroRequestForResource(v1.ResourceCPU, &container.Resources.Requests)
 				podRequest += value
 			}
-			log.Print("pod cpu request ",string(podRequest )) 
+			log.Print("pod cpu request %d", podRequest ) 
 			for i, node := range nodes {
-				
-				//log.Print("node  " , node.Name,string(node.Status.Allocatable),string(node.Status.Capacity))
+				log.Print("node has cpu %d" , node.Status.Capacity[v1.ResourceCPU])
+				//log.Print("node  " , node.Name,string(node.Status.Allocatable)))
 				//log.Print(string(node.Status.VolumesInUse))
 				
 				priorityList[i] = schedulerapi.HostPriority{
