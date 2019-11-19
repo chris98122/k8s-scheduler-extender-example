@@ -49,7 +49,7 @@ var (
 			log.Print("pod cpu request ",string(podRequest )) 
 			for i, node := range nodes {
 				
-				log.Print("node  " , node.Name,string(node.Status.Allocatable),,string(node.Status.Capacity))
+				log.Print("node  " , node.Name,string(node.Status.Allocatable),string(node.Status.Capacity))
 				log.Print(string(node.Status.VolumesInUse))
 				
 				priorityList[i] = schedulerapi.HostPriority{
