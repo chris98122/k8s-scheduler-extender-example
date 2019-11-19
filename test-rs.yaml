@@ -1,14 +1,9 @@
-apiVersion: apps/v1　　#api版本定义
-kind: ReplicaSet　　#定义资源类型为ReplicaSet
-metadata:　　#元数据定义
-    name: myapp
-    namespace: default
-spec:　　#ReplicaSet的规格定义
-    replicas: 2　　#定义副本数量为2个
-    selector:　　　　#标签选择器，定义匹配pod的标签
-        matchLabels:
-            app: myapp
-            release: canary
+apiVersion: extensions/v1
+kind: ReplicaSet
+metadata:
+  name: hello-minikube
+spec:
+  replicas: 2
     template:　　#pod的模板定义 
         metadata:
           name: test-pod
