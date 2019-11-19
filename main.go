@@ -34,34 +34,62 @@ var (
 		Func: func(pod v1.Pod, node v1.Node) (bool, error) {
 			return true, nil
 		},
-	}
+	} 
+
+	type ResourceToValueMap map[v1.ResourceName]int64
 
 	myPriority = Prioritize{
-		Name: "my_score",
+		Name: "my_score",//allocate by CPU 
 		Func: func(pod v1.Pod, nodes []v1.Node) (*schedulerapi.HostPriorityList, error) {
 			var priorityList schedulerapi.HostPriorityList
 			priorityList = make([]schedulerapi.HostPriority, len(nodes))
-			podRequest := int64(0)
+			podRequest_cpu := int64(0)
+			podRequest_mem : =int64(0)
 			for i := range pod.Spec.Containers {
 				container := &pod.Spec.Containers[i]
-				value := priorityutil.GetNonzeroRequestForResource(v1.ResourceCPU, &container.Resources.Requests)
-				podRequest += value
+				value_cpu := priorityutil.GetNonzeroRequestForResource(v1.ResourceCPU, &container.Resources.Requests)
+				value_mem :=  priorityutil.GetNonzeroRequestForResource(v1.ResourceMemory, &container.Resources.Requests)
+				podRequest_cpu += value_cpu
+				podRequest_mem += value_mem
 			}
+			requestmap := make(ResourceToValueMap,2)
+			requestmap[v1.ResourceCPU] = podRequest_cpu   
+			requestmap[v1.ResourceMemory] = podRequest_mem
+
 			log.Print("pod cpu request  ", strconv.FormatInt( podRequest,10) )  
 			for i, node := range nodes {
-				 log.Print("node has cpu " ,strconv.FormatInt( node.Status.Allocatable.Cpu().MilliValue(),10))  
-				//log.Print("node  " , node.Name,string(node.Status.Allocatable)))
-				//log.Print(string(node.Status.VolumesInUse))
-				
+				allocable_map := make(ResourceToValueMap,len(nodes)*2)
+				allocable_map[v1.ResourceCPU] =  node.Status.Allocatable.Cpu().MilliValue()
+				allocable_map[v1.ResourceMemory] = node.Status.Allocatable.Memory().MilliValue()
+
+				log.Print("node has cpu " ,strconv.FormatInt(allocable_map[v1.ResourceCPU]   ,10))  
+				log.Print("node has memory " ,strconv.FormatInt( allocable_map[v1.ResourceMemory]  ,10))   
+
 				priorityList[i] = schedulerapi.HostPriority{
 					Host:  node.Name,
-					Score: 0,
+					Score: myscorer(requestmap,allocable_map),
 				}
 			}
 			return &priorityList, nil
 		},
 	}
+	func myscorer(requested, allocable ResourceToValueMap)int64
+	{ 
+		cpuFraction := fractionOfCapacity(requestmap[v1.ResourceCPU], allocable[v1.ResourceCPU]) 
+		memoryFraction := fractionOfCapacity(requestmap[v1.ResourceMemory], allocable[v1.ResourceMemory])
+		if cpuFraction >= 1 || memoryFraction >= 1 {
+			// if requested >= capacity, the corresponding host should never be preferred.
+			return 0
+		}
+		return int64(10-cpuFraction-memoryFraction) 
+	}
 
+	func fractionOfCapacity(requested, capacity int64) float64 {
+		if capacity == 0 {
+			return 1
+		}
+		return float64(requested) / float64(capacity)
+	}
 
 	NoBind = Bind{
 		Func: func(podName string, podNamespace string, podUID types.UID, node string) error {
