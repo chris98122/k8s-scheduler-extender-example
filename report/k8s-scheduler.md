@@ -30,9 +30,35 @@ memoryFraction
 
 ## 自定义schedueler的实现过程
 
-1. 定义接口，实现custom priority，在路由中注册好自定义的policy
+1. 定义接口，实现custom predicate和priority，在路由中注册好自定义的policy
 
+   ```go
+   Func: func(pod v1.Pod, node v1.Node) (bool, error) {
+   			// get pod infos
+   			podRequest_cpu := int64(0)
+   			podRequest_mem :=int64(0)
+   			for i := range pod.Spec.Containers {
+   				container := &pod.Spec.Containers[i]
+   				value_cpu := priorityutil.GetNonzeroRequestForResource(v1.ResourceCPU, &container.Resources.Requests)
+   				value_mem :=  priorityutil.GetNonzeroRequestForResource(v1.ResourceMemory, &container.Resources.Requests)
+   				podRequest_cpu += value_cpu
+   				podRequest_mem += value_mem
+   			}
+   			// get node infos
+   			allocableCPU :=  node.Status.Allocatable.Cpu().MilliValue()
+   			allocableMemory := node.Status.Allocatable.Memory().MilliValue()
+   			// compare
+   			if float64(allocableCPU) > float64(podRequest_cpu) && float64(allocableMemory) > float64(podRequest_mem) {
+   				return true, nil
+   			}
+   
+   			return false, nil
+   		}
    ```
+
+   predicate是类似与podfitsrecourse的设计，只有能容纳pod的node才会被列为候选者。
+
+   ```go
    func myscorer(requestmap, allocable ResourceToValueMap) int { 
    	cpuFraction := fractionOfCapacity(requestmap[v1.ResourceCPU], allocable[v1.ResourceCPU]) 
    	memoryFraction := fractionOfCapacity(requestmap[v1.ResourceMemory], allocable[v1.ResourceMemory])
@@ -45,14 +71,13 @@ memoryFraction
    
    ```
 
-   
-
 2. 写好extender的yaml文件
 
    ```
     "extenders" : [{
          "urlPrefix": "http://localhost/scheduler", 
-         "prioritizeVerb": "priorities/my_score",
+         "filterVerb": "predicates/allocatable_true", //customized predicate
+         "prioritizeVerb": "priorities/my_score", //customized priority
          "preemptVerb": "preemption",
          "bindVerb": "",
          "weight": 1,
