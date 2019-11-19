@@ -41,7 +41,7 @@ var (
 		Func: func(pod v1.Pod, nodes []v1.Node) (*schedulerapi.HostPriorityList, error) {
 			var priorityList schedulerapi.HostPriorityList
 			priorityList = make([]schedulerapi.HostPriority, len(nodes))
-			podRequest := 0
+			podRequest := int64(0)
 			for i := range pod.Spec.Containers {
 				container := &pod.Spec.Containers[i]
 				value := priorityutil.GetNonzeroRequestForResource(v1.ResourceCPU, &container.Resources.Requests)
