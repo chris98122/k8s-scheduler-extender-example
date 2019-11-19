@@ -35,7 +35,7 @@ func myscorer(requestmap, allocable ResourceToValueMap) int {
 		// if requested >= capacity, the corresponding host should never be preferred.
 		return 0
 	}
-	return int(10-cpuFraction-memoryFraction) 
+	return int(10-cpuFraction*5-memoryFraction*5) 
 }
 
 func fractionOfCapacity(requested, capacity int64) float64 {

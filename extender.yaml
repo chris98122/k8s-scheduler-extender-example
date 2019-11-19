@@ -48,22 +48,12 @@ data:
   {
     "kind" : "Policy",
     "apiVersion" : "v1",
-    "predicates" : [
-      {"name" : "PodFitsHostPorts"},
-      {"name" : "PodFitsResources"},
-      {"name" : "NoDiskConflict"},
-      {"name" : "MatchNodeSelector"},
-      {"name" : "HostName"}
+    "predicates" : [ 
     ],
-    "priorities" : [
-      {"name" : "LeastRequestedPriority", "weight" : 1},
-      {"name" : "BalancedResourceAllocation", "weight" : 1},
-      {"name" : "ServiceSpreadingPriority", "weight" : 1},
-      {"name" : "EqualPriority", "weight" : 1}
+    "priorities" : [ 
     ],
     "extenders" : [{
-      "urlPrefix": "http://localhost/scheduler",
-      "filterVerb": "predicates/always_true",
+      "urlPrefix": "http://localhost/scheduler", 
       "prioritizeVerb": "priorities/my_score",
       "preemptVerb": "preemption",
       "bindVerb": "",
