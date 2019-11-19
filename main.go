@@ -49,7 +49,7 @@ var (
 			}
 			log.Print("pod cpu request  ", strconv.FormatInt( podRequest,10) )  
 			for i, node := range nodes {
-				 log.Print("node has cpu " ,strconv.FormatInt(  node.Status.Allocatable[v1.ResourceCPU].MilliCPU ,10))  
+				 log.Print("node has cpu " ,strconv.FormatInt( node.Status.Allocatable.Cpu().MilliValue(),10))  
 				//log.Print("node  " , node.Name,string(node.Status.Allocatable)))
 				//log.Print(string(node.Status.VolumesInUse))
 				
