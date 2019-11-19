@@ -12,8 +12,7 @@ import (
 
 	"k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/types"
-	schedulerapi "k8s.io/kubernetes/pkg/scheduler/api"
-	"k8s.io/klog"
+	schedulerapi "k8s.io/kubernetes/pkg/scheduler/api" 
 	priorityutil "k8s.io/kubernetes/pkg/scheduler/algorithm/priorities/util"
 )
 
@@ -47,11 +46,11 @@ var (
 				value := priorityutil.GetNonzeroRequestForResource(v1.ResourceCPU, &container.Resources.Requests)
 				podRequest += value
 			}
-			
-			klog.Info( "pod cpu request %d",podRequest)
+			log.Print("pod cpu request ",string(podRequest )) 
 			for i, node := range nodes {
 				
-				klog.Info( "node %s %d %d %d" , node.Name,node.Status.Allocatable,node.Status.Capacity,node.Status.VolumesInUse) 
+				log.Print("node  " , node.Name,string(node.Status.Allocatable),,string(node.Status.Capacity))
+				log.Print(string(node.Status.VolumesInUse))
 				
 				priorityList[i] = schedulerapi.HostPriority{
 					Host:  node.Name,
