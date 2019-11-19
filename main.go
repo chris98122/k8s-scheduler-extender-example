@@ -77,8 +77,9 @@ var (
 			log.Print("pod cpu request  ", strconv.FormatInt( podRequest_cpu   ,10) )  
 			
 			log.Print("pod memory request  ", strconv.FormatInt( podRequest_mem   ,10) )  
+			
+			allocable_map := make(ResourceToValueMap,len(nodes)*2)
 			for i, node := range nodes {
-				allocable_map := make(ResourceToValueMap,len(nodes)*2)
 				allocable_map[v1.ResourceCPU] =  node.Status.Allocatable.Cpu().MilliValue()
 				allocable_map[v1.ResourceMemory] = node.Status.Allocatable.Memory().MilliValue()
 
