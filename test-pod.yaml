@@ -3,6 +3,7 @@ kind: Pod
 metadata:
   name: test-pod
 spec:
+  replicas: 30
   schedulerName: my-scheduler
   containers:
   - name: nginx
