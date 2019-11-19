@@ -28,14 +28,14 @@ const (
 
 type ResourceToValueMap map[v1.ResourceName]int64
 
-func myscorer(requestmap, allocable ResourceToValueMap) int64 { 
+func myscorer(requestmap, allocable ResourceToValueMap) int { 
 	cpuFraction := fractionOfCapacity(requestmap[v1.ResourceCPU], allocable[v1.ResourceCPU]) 
 	memoryFraction := fractionOfCapacity(requestmap[v1.ResourceMemory], allocable[v1.ResourceMemory])
 	if cpuFraction >= 1 || memoryFraction >= 1 {
 		// if requested >= capacity, the corresponding host should never be preferred.
 		return 0
 	}
-	return int64(10-cpuFraction-memoryFraction) 
+	return int(10-cpuFraction-memoryFraction) 
 }
 
 func fractionOfCapacity(requested, capacity int64) float64 {
