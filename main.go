@@ -47,9 +47,9 @@ var (
 				value := priorityutil.GetNonzeroRequestForResource(v1.ResourceCPU, &container.Resources.Requests)
 				podRequest += value
 			}
-			log.Print("pod cpu request  ", strconv.Itoa(  podRequest,10) )  
+			log.Print("pod cpu request  ", strconv.FormatInt( podRequest,10) )  
 			for i, node := range nodes {
-				log.Print("node has cpu " , strconv.Itoa(node.Status.Capacity[v1.ResourceCPU],10) )  
+				 log.Print("node has cpu " ,strconv.FormatInt(  node.Status.Capacity[v1.ResourceCPU].MilliCPU ,10))  
 				//log.Print("node  " , node.Name,string(node.Status.Allocatable)))
 				//log.Print(string(node.Status.VolumesInUse))
 				
