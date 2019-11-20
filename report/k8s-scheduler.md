@@ -73,7 +73,7 @@ memoryFraction
 
 2. 写好extender的yaml文件
 
-   ```
+   ```yaml
     "extenders" : [{
          "urlPrefix": "http://localhost/scheduler", 
          "filterVerb": "predicates/allocatable_true", //customized predicate
@@ -206,11 +206,11 @@ kubectl apply，创建该configmap，接着使用kube-scheduler指定默认的sc
 
 node1:
 
-![](E:\SE\k8s\k8s-scheduler-extender-example\report\imgs\built-node1.PNG)
+![](./imgs/built-node1.PNG)
 
 node2:
 
-![](E:\SE\k8s\k8s-scheduler-extender-example\report\imgs\built-node2.PNG)
+![](./imgs/built-node2.PNG)
 
 两个node资源消耗分布均衡，符合预期。
 
@@ -222,10 +222,10 @@ node2:
 
 node1：
 
-![](E:\SE\k8s\k8s-scheduler-extender-example\report\imgs\my-node1.PNG)
+![](./imgs/my-node1.PNG)
 
 node2:
 
-![](E:\SE\k8s\k8s-scheduler-extender-example\report\imgs\my-node2.PNG)
+![](./imgs/my-node2.PNG)
 
 可见资源的消耗并不是很平均，但差得也不会太离谱。若要对cpu和memory进行更为平均的分配，还需要进一步优化原有算法，或者加入built-in scheduler。
