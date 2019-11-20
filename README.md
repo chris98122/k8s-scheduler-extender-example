@@ -1,9 +1,9 @@
 # k8s-scheduler-extender-example
 ## declaration
 
-This is a repo that the frame is forked from everpeace/k8s-scheduler-extender-example, the algorithm is written by us.
+This repo's frame is forked from everpeace/k8s-scheduler-extender-example, and the algorithm is written by us.
 
-In the lab, we use our customized scheduler and also built-in scheduler (see extender.yaml and built-in-scheduler.yaml). And also compare the scheduled result from the customized scheduler and the built-in.
+In the lab, we use our customized scheduler and built-in scheduler (see extender.yaml and built-in-scheduler.yaml). And finally compare the scheduled result from the customized scheduler and the built-in scheduler.
 
 See the report in ./report directory. 
 
